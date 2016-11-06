@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Backend3";
+}
+
+<h2>Backend3</h2>
+
+<div>
+    <table>
+        <tr>
+            <th>Rok</th>
+            <th>Liczba trzęsień</th>
+        </tr>
+        @foreach (var row in ViewBag.rows)
+        {
+            <tr>
+                <td>
+                    @row[0]
+                </td>
+                <td>
+                    @row[1]
+                </td>
+            </tr>
+        }
+    </table>
+</div>

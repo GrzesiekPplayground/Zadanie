@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Backend4";
+}
+
+<h2>Wyniki</h2>
+
+<div>
+    <table>
+        <tr>
+            <th>Miejsce</th>
+            <th>Zabitych</th>
+        </tr>
+        @foreach (var row in ViewBag.rows)
+        {
+            <tr>
+                <td>
+                    @row[1]
+                </td>
+                <td>
+                    @Convert.ToInt32(row[6])
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
