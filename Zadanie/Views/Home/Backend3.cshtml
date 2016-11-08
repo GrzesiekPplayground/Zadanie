@@ -1,14 +1,32 @@
-﻿
+﻿@model Zadanie.Models.Earthquake
 @{
     ViewBag.Title = "Backend3";
 }
 
 <h2>Backend3</h2>
 
+<h4>Wybierz rok</h4>
+
+@using (Html.BeginForm("Backend3", "Home", FormMethod.Post))
+{
+    @Html.DropDownListFor(m => m.selectedYear, Zadanie.Models.Earthquake.GetYearsSelectItems())
+    <input type="submit" value="Wybierz" />
+}
+
+@*<div>
+    <form action="/Home/Backend3" method="post">
+        <label for="year">Rok: </label>
+        <input type="text" name="year" id="year" />
+
+        <input type="submit" value="Pokaż" />
+    </form>
+</div>*@
+
+
 <div>
     <table>
         <tr>
-            <th>Rok</th>
+            <th>Wybrany Rok</th>
             <th>Liczba trzęsień</th>
         </tr>
         @foreach (var row in ViewBag.rows)
@@ -21,6 +39,6 @@
                     @row[1]
                 </td>
             </tr>
-        }
+            }
     </table>
 </div>
