@@ -34,7 +34,7 @@ namespace Zadanie.Controllers
         {
             var year = "1970;";
             var query = string.Format("SELECT LEFT(YYYYMMDD, 4) AS Year, Count(*) FROM {1} WHERE (YYYYMMDD LIKE '{0}%') GROUP BY Year", year, _tableAdress);
-            var rows = myData(query);
+
             ViewBag.rows = myData(query);
 
             return View();
@@ -45,7 +45,7 @@ namespace Zadanie.Controllers
         {
             var year = eq.selectedYear;
             var query = string.Format("SELECT LEFT(YYYYMMDD, 4) AS Year, Count(*) FROM {1} WHERE (YYYYMMDD LIKE '{0}%') GROUP BY Year", year, _tableAdress);
-            var rows = myData(query);
+
             ViewBag.rows = myData(query);
 
             return View();

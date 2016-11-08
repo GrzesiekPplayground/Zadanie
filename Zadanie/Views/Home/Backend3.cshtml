@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm("Backend3", "Home", FormMethod.Post))
 {
-    @Html.DropDownListFor(m => m.selectedYear, Zadanie.Models.Earthquake.GetYearsSelectItems())
+    @Html.DropDownListFor(m => m.selectedYear, Zadanie.Models.Earthquake.yList())
     <input type="submit" value="Wybierz" />
 }
 
@@ -22,8 +22,29 @@
     </form>
 </div>*@
 
+<div id="earthquakes-count">
+    @{
+        var rows = ViewBag.rows;
 
-<div>
+        if (rows.Count!= 0)
+        {
+            var returnedRow = ViewBag.rows[0];
+            var year = returnedRow[0];
+            var events = returnedRow[1];
+            <p>W @year roku miało miejsce @events trzęsień ziemi.</p>
+        }
+        else
+        {
+            <p>Wybierz rok.</p>
+        }
+
+    }
+</div>
+
+
+
+
+@*<div>
     <table>
         <tr>
             <th>Wybrany Rok</th>
@@ -41,4 +62,4 @@
             </tr>
             }
     </table>
-</div>
+</div>*@

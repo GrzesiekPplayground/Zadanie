@@ -23,18 +23,13 @@ textarea {
     max-width: 280px;
 }
 
-
-th, td {
-    width: 180px;
-}
-
 table {
     margin-top: 25px;
 }
 
 th {
     border: 1px solid;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -43,4 +38,9 @@ td {
     border-color: dimgrey;
     padding: 2px;
     padding-left: 10px;
+    padding-right: 10px;
+}
+
+#earthquakes-count{
+    padding-top: 20px;
 }
