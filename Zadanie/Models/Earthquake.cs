@@ -1,36 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Web.Mvc;
 
 namespace Zadanie.Models
 {
-    
+
     public class Earthquake
     {
-
-        public string year { get; set; }
+        // Rok wybrany z listy
         public string selectedYear { get; set; }
-
-        //public static IEnumerable<SelectListItem> GetYearsSelectItems()
-        //{
-        //    yield return new SelectListItem { Text = "1970", Value = "1970" };
-        //    yield return new SelectListItem { Text = "1980", Value = "1980" };
-        //}
-
-        //public static List<SelectListItem> xGetYearsSelectItems;
         
-        public static List<SelectListItem> yList(int minYear, int maxYear)
+        // Zwroc liste wszystkich lat z podanego przedziali jako listę stringów
+        public static List<SelectListItem> GetAllYearsList(int minYear, int maxYear)
         {
-            var someList = new List<SelectListItem>();
+            var resultList = new List<SelectListItem>();
             for (int y = minYear; y <= maxYear; y++)
             {
                 var year = Convert.ToString(y);
-                someList.Add(new SelectListItem { Text = year, Value = year });
+                resultList.Add(new SelectListItem { Text = year, Value = year });
             }
-            return someList;
+            return resultList;
         }
-
 
     }
 }

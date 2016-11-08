@@ -3,33 +3,26 @@
     ViewBag.Title = "Backend3";
 }
 
-<h2>Backend3</h2>
+<h2>Zadanie Backend 3</h2>
 
-<h4>Wybierz rok</h4>
+<h4>Wybierz rok, dla którego chcesz zobaczyć liczbę trzęsień ziemi</h4>
 
+@* Lista do wyboru roku *@
 @using (Html.BeginForm("Backend3", "Home", FormMethod.Post))
 {
     int minYear = ViewBag.minYear;
     int maxYear = ViewBag.maxYear;
 
-    @Html.DropDownListFor(m => m.selectedYear, Zadanie.Models.Earthquake.yList(minYear, maxYear))
+    @Html.DropDownListFor(m => m.selectedYear, Zadanie.Models.Earthquake.GetAllYearsList(minYear, maxYear), "Wybierz rok...")
     <input type="submit" value="Wybierz" />
 }
 
-@*<div>
-    <form action="/Home/Backend3" method="post">
-        <label for="year">Rok: </label>
-        <input type="text" name="year" id="year" />
-
-        <input type="submit" value="Pokaż" />
-    </form>
-</div>*@
-
+@* Wyświetlanie wyniku dla wybranego roku *@
 <div id="earthquakes-count">
     @{
         var rows = ViewBag.rows;
 
-        if (rows.Count!= 0)
+        if (rows.Count != 0)
         {
             var returnedRow = ViewBag.rows[0];
             var year = returnedRow[0];
@@ -38,31 +31,8 @@
         }
         else
         {
-            <p>Wybierz rok.</p>
+            <p>Nie wybrano roku.</p>
         }
-
     }
 </div>
 
-
-
-
-@*<div>
-    <table>
-        <tr>
-            <th>Wybrany Rok</th>
-            <th>Liczba trzęsień</th>
-        </tr>
-        @foreach (var row in ViewBag.rows)
-        {
-            <tr>
-                <td>
-                    @row[0]
-                </td>
-                <td>
-                    @row[1]
-                </td>
-            </tr>
-            }
-    </table>
-</div>*@
