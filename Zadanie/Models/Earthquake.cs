@@ -20,10 +20,10 @@ namespace Zadanie.Models
 
         //public static List<SelectListItem> xGetYearsSelectItems;
         
-        public static List<SelectListItem> yList()
+        public static List<SelectListItem> yList(int minYear, int maxYear)
         {
             var someList = new List<SelectListItem>();
-            for (int y = 1970; y < 2003; y++)
+            for (int y = minYear; y <= maxYear; y++)
             {
                 var year = Convert.ToString(y);
                 someList.Add(new SelectListItem { Text = year, Value = year });

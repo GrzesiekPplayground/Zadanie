@@ -25,6 +25,28 @@ namespace Zadanie.Controllers
             }
         }
 
+        private int _minYear
+        {
+            get
+            {
+                var minYearQuery = string.Format("SELECT MIN(LEFT(YYYYMMDD, 4)) FROM {0}", _tableAdress);
+
+                var minYearRow = myData(minYearQuery);
+                return Convert.ToInt32((minYearRow[0])[0]);
+            }
+        }
+
+        private int _maxYear
+        {
+            get
+            {
+                var maxYearQuery = string.Format("SELECT MAX(LEFT(YYYYMMDD, 4)) FROM {0}", _tableAdress);
+
+                var maxYearRow = myData(maxYearQuery);
+                return Convert.ToInt32((maxYearRow[0])[0]);
+            }
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -34,8 +56,13 @@ namespace Zadanie.Controllers
         {
             var year = "1970;";
             var query = string.Format("SELECT LEFT(YYYYMMDD, 4) AS Year, Count(*) FROM {1} WHERE (YYYYMMDD LIKE '{0}%') GROUP BY Year", year, _tableAdress);
+            //var minYearQuery = string.Format("SELECT MIN(LEFT(YYYYMMDD, 4)) FROM {0}", _tableAdress);
+            //var maxYearQuery = string.Format("SELECT MAX(LEFT(YYYYMMDD, 4)) FROM {0}", _tableAdress);
 
             ViewBag.rows = myData(query);
+
+            ViewBag.minYear = _minYear;
+            ViewBag.maxYear = _maxYear;
 
             return View();
         }
@@ -47,6 +74,9 @@ namespace Zadanie.Controllers
             var query = string.Format("SELECT LEFT(YYYYMMDD, 4) AS Year, Count(*) FROM {1} WHERE (YYYYMMDD LIKE '{0}%') GROUP BY Year", year, _tableAdress);
 
             ViewBag.rows = myData(query);
+
+            ViewBag.minYear = _minYear;
+            ViewBag.maxYear = _maxYear;
 
             return View();
         }

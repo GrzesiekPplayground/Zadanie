@@ -9,7 +9,10 @@
 
 @using (Html.BeginForm("Backend3", "Home", FormMethod.Post))
 {
-    @Html.DropDownListFor(m => m.selectedYear, Zadanie.Models.Earthquake.yList())
+    int minYear = ViewBag.minYear;
+    int maxYear = ViewBag.maxYear;
+
+    @Html.DropDownListFor(m => m.selectedYear, Zadanie.Models.Earthquake.yList(minYear, maxYear))
     <input type="submit" value="Wybierz" />
 }
 
