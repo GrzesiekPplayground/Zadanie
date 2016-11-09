@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 
 namespace Zadanie.Models
 {
@@ -14,6 +13,7 @@ namespace Zadanie.Models
         private int _firstYear;
         private int _lastYear;
 
+        // Minimalny i maksymalny rok na podstawie listy z GetYearsList
         public static int MaxYear
         {
             get
@@ -47,6 +47,7 @@ namespace Zadanie.Models
             }
         }
 
+        // Pierwszy i ostatni rok wybrane z listy w widoku
         public int FirstYear
         {
             get
@@ -70,6 +71,7 @@ namespace Zadanie.Models
             }
         }
 
+        // String w foracie Json
         public string JsonString
         {
             get
@@ -79,28 +81,37 @@ namespace Zadanie.Models
             }
         }
 
+
+        // Z obiektu JToken wybierz rok.
         private static string GetYearFromToken(JToken token)
         {
+            // Z Token wybierz "attributes"
             IList<JToken> attributesTokens = token["attributes"].Children().ToList();
-            JToken dateToken = attributesTokens[13];
+
+            // pobierz token daty - 13 pozycja listy
+            JToken dateToken = attributesTokens[13]; 
+
+            // z tokena daty pobierz wartość jako string i wybierz z niego rok
             string dateString = dateToken.First.ToString();
             string yearString = dateString.Substring(0, 4);
 
             return yearString;
         }
 
+        // Pobierz listę lat
         private static List<string> GetYearsList()
         {
+            // Lista, w której będą przechowywane lata
             List<string> yearsList = new List<string>();
 
+            // Pobierz dane z URL do stringa
             var jsonText = new WebClient().DownloadString("https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/Since_1970/MapServer/0/query?where=1%3D1&outFields=*&f=pjson");
 
+            // Konwertuj dane ze stringa do obiektu. Z całego pliku pobierz "features" jako listę obiektów JToken
             JObject myJObject = JObject.Parse(jsonText);
             IList<JToken> results = myJObject["features"].Children().ToList();
 
-            JToken someToken = results[5];
-            IList<JToken> atrToken = someToken["attributes"].Children().ToList();
-
+            // Z każdego obiektu listy results pobierz rok i zapis go do listy.
             for (int i = 0; i < results.Count; i++)
             {
                 JToken token = results[i];
@@ -111,22 +122,21 @@ namespace Zadanie.Models
             return yearsList;
         }
 
+        // Zlicz trzęsienia zemi w podanych latach
         private static Dictionary<string, int> GetYearsCount(int firstYear, int lastYear)
         {
             Dictionary<string, int> yearsCount = new Dictionary<string, int>();
 
-            var myList = GetYearsList();
-
-            foreach (string year in myList)
+            foreach (string year in GetYearsList())
             {
                 int yearInt = Convert.ToInt32(year);
-                if (yearInt >= firstYear && yearInt <= lastYear)
+                if (yearInt >= firstYear && yearInt <= lastYear) // Jeśli rok zawiera sie w podanym przedziale
                 {
-                    if (yearsCount.ContainsKey(year))
+                    if (yearsCount.ContainsKey(year)) // Jeśli rok jest już na liście, zwiększ liczbę trzęsień dla danego roku o 1.
                     {
                         yearsCount[year]++;
                     }
-                    else
+                    else // Jeśli nie ma, dodaj z odpowiadającą liczbą trzśień ziemi = 1;
                     {
                         yearsCount.Add(year, 1);
                     }

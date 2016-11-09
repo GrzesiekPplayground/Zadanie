@@ -26,6 +26,10 @@ textarea {
     margin-top: 10px;
 }
 
+form select {
+    margin-right: 5px;
+}
+
 table {
     margin-top: 25px;
 }

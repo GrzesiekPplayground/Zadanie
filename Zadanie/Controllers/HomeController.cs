@@ -97,22 +97,18 @@ namespace Zadanie.Controllers
 
         public ActionResult Json(JsonData j)
         {
-
-            ViewBag.minYear = _minYear;
-            ViewBag.maxYear = _maxYear;
-
             return View();
         }
 
+        // Pobierz plik Json
         public ActionResult DownloadJson(JsonData j)
         {
+            // zapisz do pliku JData.json dane z Obiektu JsonData j
             var filePath = _rootPath + "Data\\JData.json";
             System.IO.File.WriteAllText(filePath, j.JsonString);
 
-            ViewBag.jsonString = j.JsonString;
-            ViewBag.filePath = filePath;
-
-            return File(filePath, MediaTypeNames.Text.Plain, "plik.json");         
+            // Zwróć plik do pobrania
+            return File(filePath, MediaTypeNames.Text.Plain, "plik.json");                   
         }
 
         // Pobierz z dbf dane postaci listy obiektów DataRow na podstawie zapytania SQL

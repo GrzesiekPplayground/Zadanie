@@ -1,11 +1,13 @@
 ﻿@model Zadanie.Models.JsonData
 @{
-    ViewBag.Title = "Json";
+    ViewBag.Title = "Backend 5 - Json";
 }
 
-<h2>Json</h2>
-<h3>Pobierz plik Json</h3>
+<h2>Pobierz plik Json</h2>
+<h4>Wybierz okres, dla którego chcesz pobrać dane</h4>
+<p>Uwaga: Jeśli pierwszy rok będzie większy od ostatniego, plik nie będzie zawierał żadnych wartości!</p>
 
+@* Lista do wyboru okresu, dla którego ma być zwrócony Json *@
 @using (Html.BeginForm("DownloadJson", "Home", FormMethod.Post))
 {
     int minYear = Zadanie.Models.JsonData.MinYear;
@@ -13,7 +15,7 @@
 
     @Html.DropDownListFor(m => m.FirstYear, Zadanie.Models.Earthquake.GetAllYearsList(minYear, maxYear), "Wybierz pierwszy rok...")
     @Html.DropDownListFor(m => m.LastYear, Zadanie.Models.Earthquake.GetAllYearsList(minYear, maxYear), "Wybierz ostatni rok...")
-    <input type="submit" value="Wybierz" />
+    <input type="submit" value="Pobierz" />
 }
 
 
