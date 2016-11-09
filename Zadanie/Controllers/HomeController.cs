@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Net.Mime;
 using System.Web.Mvc;
 using Zadanie.Models;
 
@@ -92,6 +93,26 @@ namespace Zadanie.Controllers
             ViewBag.rows = rows;
 
             return View();
+        }
+
+        public ActionResult Json(JsonData j)
+        {
+
+            ViewBag.minYear = _minYear;
+            ViewBag.maxYear = _maxYear;
+
+            return View();
+        }
+
+        public ActionResult DownloadJson(JsonData j)
+        {
+            var filePath = _rootPath + "Data\\JData.json";
+            System.IO.File.WriteAllText(filePath, j.JsonString);
+
+            ViewBag.jsonString = j.JsonString;
+            ViewBag.filePath = filePath;
+
+            return File(filePath, MediaTypeNames.Text.Plain, "plik.json");         
         }
 
         // Pobierz z dbf dane postaci listy obiektów DataRow na podstawie zapytania SQL

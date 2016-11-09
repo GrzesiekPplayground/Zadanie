@@ -1,0 +1,19 @@
+﻿@model Zadanie.Models.JsonData
+@{
+    ViewBag.Title = "Json";
+}
+
+<h2>Json</h2>
+<h3>Pobierz plik Json</h3>
+
+@using (Html.BeginForm("DownloadJson", "Home", FormMethod.Post))
+{
+    int minYear = Zadanie.Models.JsonData.MinYear;
+    int maxYear = Zadanie.Models.JsonData.MaxYear;
+
+    @Html.DropDownListFor(m => m.FirstYear, Zadanie.Models.Earthquake.GetAllYearsList(minYear, maxYear), "Wybierz pierwszy rok...")
+    @Html.DropDownListFor(m => m.LastYear, Zadanie.Models.Earthquake.GetAllYearsList(minYear, maxYear), "Wybierz ostatni rok...")
+    <input type="submit" value="Wybierz" />
+}
+
+
